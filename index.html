@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.css">
+    <script src="linkers/send_message.js"></script>
+    <title>gClient</title>
+    <style>
+        .send-button {
+            margin: auto;
+            display: block;
+        }
+        
+        .message-box {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class=container>
+        <div class="col-md-8">
+            <div class="navbar fixed-bottom message-box">
+                <div class="col-md-10">
+                    <input type="text" class="form-control" placeholder="Send a message..." id="message-box">
+                </div>
+                <div class="col mx-auto">
+                    <button type="button" class="btn btn-primary send-button" onclick="send_message()">Send message.</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        require('./renderer.js')
+    </script>
+</body>
+
+</html>
