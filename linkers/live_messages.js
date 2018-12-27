@@ -1,9 +1,5 @@
-var axios = require('axios')
 var http = require('http')
 var faye = require('faye')
-var fs = require('fs')
-var zmq = require('zeromq')
-var sock = zmq.socket('pub')
 
 let url      = "https://push.groupme.com/faye"
 let client   = JSON.parse(fs.readFileSync('bin/_main.json'))
@@ -218,14 +214,20 @@ var each = function(obj, iterator, context) {
 var stream = new IncomingStream(client.token, client.id)
 
 stream.connect();
-sock.bindSync('tcp://127.0.0.1:1337');
-console.log("Binded to port 1337")
-
+//sock.bindSync('tcp://127.0.0.1:1337');
+//console.log("Binded to port 1337")
 stream.on('message', function(callback) {
-    source_guid = (new Date())*1
-    console.log(source_guid)
-    let x = JSON.stringify(callback)
-    sock.send(x)
     console.log(callback)
-    console.log("----- LINE SPLIT -----")
+    type = callback['data']['type']
+    if(type == 'ping') {
+        console.log("Pinged.")
+    }
+    else if(type == 'line.create'  || type == 'direct_message.create') {
+        let message = document.createElement("li")
+        message.innerHTML = callback['data']['subject']['name'] + " - " + callback['data']['subject']['text']
+        message.setAttribute('id', callback['data']['subject']['source_guid'])
+        message.setAttribute('class', 'list-group-item')
+        let list = document.getElementById('message-window')
+        list.insertBefore(message, list.childNodes[0])
+    }
 })

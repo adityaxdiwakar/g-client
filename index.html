@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://bootswatch.com/4/cosmo/bootstrap.css">
-    <script src="linkers/send_message.js"></script>
     <title>gClient</title>
     <style>
         .send-button {
@@ -15,24 +14,85 @@
         .message-box {
             margin-bottom: 10px;
         }
+
+        #chat-window {
+            margin-bottom:75px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        #message-window {
+            margin-bottom:75px;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        #top-main-text {
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .avatar {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
+
+        .message-text {
+            display: inline-block;
+        }
+        
+        .chat-text {
+            display: inline-block;
+        }
+
+        .chat-avatar {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            margin-right: 10px;
+        }
+
     </style>
 </head>
 
 <body>
     <div class=container>
-        <div class="col-md-8">
-            <div class="navbar fixed-bottom message-box">
-                <div class="col-md-10">
-                    <input type="text" class="form-control" placeholder="Send a message..." id="message-box">
-                </div>
-                <div class="col mx-auto">
-                    <button type="button" class="btn btn-primary send-button" onclick="send_message()">Send message.</button>
+        <h1 id="top-main-text"><strong>gClient</strong> - Unofficial GroupMe Client</h1>
+        <div class="row">
+            <div class="col-sm-4">
+                <ul id="chat-window">
+
+                </ul>
+            </div>
+            <div class="col-sm-8">
+                <ul id="message-window">
+
+                </ul>
+                <div class="navbar fixed-bottom message-box">
+                    <div class="col-md-10">
+                        <input type="text" class="form-control" placeholder="Send a message..." id="message-box">
+                    </div>
+                    <div class="col mx-auto">
+                        <button type="button" class="btn btn-primary send-button" id="send-button" onclick="send_message()">Send message.</button>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    <script src="linkers/send_message.js"></script>
+    <script src="linkers/get_messages.js"></script>
+    <script src="linkers/live_messages.js"></script>
+    <script src="linkers/get_chats.js"></script>
     <script>
         require('./renderer.js')
+    </script>
+    <script>
+        function updateScroll() {
+            let list = document.getElementById('message-window')
+            list.scrollTop = list.scrollHeight;
+        }
     </script>
 </body>
 
