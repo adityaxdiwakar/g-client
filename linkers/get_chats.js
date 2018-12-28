@@ -26,14 +26,11 @@ for(let x = 0; x < arr_length(chats); x++) {
     
     
     var image = document.createElement("img")
-    let directory = ""
-    if(fs.existsSync('bin/groups/' + chats[x]['id'] + '/avatar.jpeg')) {
-        console.log("found")
-        image.setAttribute('src', 'bin/groups/' + chats[x]['id'] + '/avatar.jpeg')
+    if(chats[x]['img_url'] == null) {
+        image.setAttribute('src', 'https://img.adityadiwakar.me/u/7U36.jpg')
     }
     else {
-        console.log("failed")
-        image.setAttribute('src', 'bin/groups/null/avatar.jpeg')
+        image.setAttribute('src', chats[x]['img_url'])
     }
     image.setAttribute('class', 'chat-avatar')
 

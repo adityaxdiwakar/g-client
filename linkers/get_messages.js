@@ -1,4 +1,33 @@
-function get_messages(chat_id) {
+let {PythonShell} = require('python-shell');
+
+arr_length = function(array) {
+    length = 0
+    t_value = 0
+    while(true) {
+        if(array[t_value] != undefined) {
+            length++;
+        }
+        else {
+            break;
+        }
+        t_value++;
+    }
+    return length
+}
+
+async function get_messages(chat_id) {
+
+    let options = {
+        mode: 'text',
+        scriptPath: 'app_engine/',
+        args: ["fetch_chat", chat_id]
+    }
+
+    await PythonShell.run('main.py', options, function (err, results) {
+        if (err) throw err;
+        console.log('Fetched chat data!');
+    });
+
     let button = document.getElementById('send-button')
     button.setAttribute('onclick', 'send_message(' + chat_id + ')')
     let list = document.getElementById('message-window')
@@ -7,23 +36,25 @@ function get_messages(chat_id) {
     }
 
     let messages = JSON.parse(fs.readFileSync('bin/groups/' + chat_id + '/messages/batch.json'))
-    for(let x = 0; x < 50; x++) {
+    for(let x = 0; x < arr_length(messages) && x < 50; x++) {
         var message = document.createElement("li")
         var message_content = document.createElement("div")
-        message.setAttribute('id', messages[x]['source_guid'])
+        try { 
+            message.setAttribute('id', messages[x]['source_guid'])      
+        }
+        catch {
+            console.log(messages[x])
+        }
         message.setAttribute('class', 'list-group-item')
         message_content.setAttribute('class', 'message-content')
         
         
         var image = document.createElement("img")
-        if(fs.existsSync('bin/users/' + messages[x]['sender_id'] + '/avatar.jpeg')) {
-            image.setAttribute('src', 'bin/users/' + messages[x]['sender_id'] + '/avatar.jpeg')
-        }
-        else if(fs.existsSync('bin/users/' + messages[x]['sender_id'] + '/avatar.gif')) {
-            image.setAttribute('src', 'bin/users/' + messages[x]['sender_id'] + '/avatar.gif')
+        if(messages[x]['avatar_url'] == null) {
+            image.setAttribute('src', 'https://img.adityadiwakar.me/u/7U36.jpg')
         }
         else {
-            image.setAttribute('src', 'bin/groups/null/avatar.jpeg')
+            image.setAttribute('src', messages[x]['avatar_url'])
         }
         image.setAttribute('class', 'avatar')
 

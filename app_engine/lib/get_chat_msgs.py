@@ -82,7 +82,7 @@ def get_all_user_messages(user):
         for x in range(len(data)):
             all_data[msg_num] = data[x]
             msg_num += 1
-            if len(all_data) == 500:
+            if len(all_data) == 50:
                 force_break = True
                 break
         try:

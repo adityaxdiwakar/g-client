@@ -1,0 +1,26 @@
+{
+  "name": "g-client-backend",
+  "version": "0.0.0",
+  "description": "Unofficial backend to interface with the GroupMe API",
+  "main": "sync.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adityaxdiwakar/g-client.git"
+  },
+  "author": "Aditya Diwakar",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adityaxdiwakar/g-client/issues"
+  },
+  "homepage": "https://github.com/adityaxdiwakar/g-client#readme",
+  "dependencies": {
+    "websocket": "^1.0.28",
+    "zeromq": "^5.1.0"
+  }
+}

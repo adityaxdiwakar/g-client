@@ -17,12 +17,13 @@ def init():
             pass
         os.mkdir("bin/"+x)
     ret_chats.update()
-    ret_cmsgs.update_all_messages()
+    #ret_cmsgs.update_all_messages()
     ret_groups.update()
-    ret_gmsgs.update_all_messages()
-    ret_users.createDirectories()
-    ret_ava.get_all_users()
-    ret_ava.get_all_groups()
+    #ret_gmsgs.update_all_messages()
+    ret_users.getAllUsers()
+    #ret_users.createDirectories()
+    #ret_ava.get_all_users()
+    #ret_ava.get_all_groups()
 
 #init()
 
@@ -40,3 +41,9 @@ def init():
 
 if sys.argv[1] == "send":
     messages.gCreate(sys.argv[2], Text=sys.argv[3])
+
+if sys.argv[1] == "fetch":
+    init()
+
+if sys.argv[1] == "fetch_chat":
+    ret_gmsgs.update_messages(sys.argv[2])
